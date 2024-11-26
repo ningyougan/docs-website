@@ -8,5 +8,3 @@ import Navbar from './components/Navbar.vue';
     <RouterView />
   </main>
 </template>
-
-<style scoped></style>
