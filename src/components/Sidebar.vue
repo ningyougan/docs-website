@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="flex flex-col w-[190px] h-screen px-3 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700"
+    class="flex flex-col w-[190px] max-h-full px-3 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700"
   >
     <div class="flex flex-col justify-between flex-1 mt-6">
       <nav class="-mx-3 space-y-6">
