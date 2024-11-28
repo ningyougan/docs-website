@@ -1,4 +1,5 @@
 <template>
+  <Phone></Phone>
   <div v-html="markdownRender" class="markdown w-5/6 px-5 py-8"></div>
 </template>
 <script setup>
@@ -6,6 +7,7 @@ import { onMounted, ref } from 'vue';
 import { getMd } from '../service';
 import { markdownIt } from './markdownCfg/index';
 import { markdownTestString } from './markdownCfg/test.js';
+import Phone from './phone.vue';
 
 const markdownRender = ref();
 
