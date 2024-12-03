@@ -1,8 +1,33 @@
 import axios from 'axios';
+import { useMainStore } from '@/store/index';
 
-export async function getMd(url) {
-  return await axios.post(
-    'http://10.134.115.92/commonService/api/getMarkdown',
-    { api: '/service/components/2.0/' }
-  );
+export async function getMd(link) {
+  console.log('link', link);
+  let gitApi;
+  // http://gitlab.spdb.com/api/v4/projects/23323/repository/files/documents%2Fmarkdown%2Fcli%2Fvue%2FREADME.md/raw?ref=release
+  let tagetMarkdown = '';
+  if (link.endsWith('/')) {
+    tagetMarkdown = link + 'README.md';
+  } else if (!link.toUpperCase().endsWith('.MD')) {
+    tagetMarkdown += link + '.md';
+  }
+  console.log('taget', tagetMarkdown);
+  gitApi = `http://gitlab.spdb.com/api/v4/projects/23323/repository/files/${encodeURIComponent(
+    'documents/markdown'
+  )}${encodeURIComponent(`${tagetMarkdown}`)}/raw?ref=release`;
+
+  return await axios.get(gitApi, {
+    headers: { 'PRIVATE-TOKEN': 'dfx_phWpsZixxNMzE6tW' },
+  });
+}
+
+export async function getSideBar(link) {
+  const mainStore = useMainStore().clickedLink;
+  console.log('main', mainStore);
+  let gitApi = `http://gitlab.spdb.com/api/v4/projects/23323/repository/files/${encodeURIComponent(
+    `documents/markdown${link}config.json`
+  )}/raw?ref=release`;
+  return await axios.get(gitApi, {
+    headers: { 'PRIVATE-TOKEN': 'dfx_phWpsZixxNMzE6tW' },
+  });
 }

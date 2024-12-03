@@ -68,12 +68,28 @@
       >
         <div class="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
           <a
-            v-for="link in links"
-            :key="link.text"
-            :href="link.href"
+            v-for="linkObj in links"
+            :key="linkObj.text"
             class="px-2.5 my-1 leading-7 text-sm text-gray-700 transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 md:mx-2"
+            @mouseenter="handleMouseEnter(linkObj)"
+            @mouseleave="handleMouseLeave(linkObj)"
           >
-            {{ link.text }}
+            <!-- @click="handleClick(linkObj)" -->
+            {{ linkObj.text }}
+            <div
+              v-if="isExpanded[linkObj.text]"
+              class="absolute bg-white shadow-md rounded-md py-2 px-3 z-10"
+            >
+              <a
+                v-for="item in linkObj.items"
+                :key="item.text"
+                class="block py-1 text-sm text-gray-700 transition-colors duration-300 transform rounded-lg hover:bg-gray-100"
+                @click="handleItemClick(item.link)"
+              >
+                <!-- :href="item.link" -->
+                {{ item.text }}
+              </a>
+            </div>
           </a>
         </div>
 
@@ -100,21 +116,35 @@
   </nav>
 </template>
 <script>
+import { mapping } from './documents/app';
+import { useMainStore } from '../store/index';
 export default {
   data() {
     return {
-      links: [
-        { text: '首页', href: '#' },
-        { text: '脚手架', href: '#' },
-        { text: 'UI组件', href: '#' },
-        { text: '服务组件', href: '#' },
-        { text: '原生', href: '#' },
-        { text: '鲁班', href: '#' },
-        { text: '后端', href: '#' },
-        { text: '扩展', href: '#' },
-        { text: '其它', href: '#' },
-      ],
+      links: mapping,
+      isExpanded: {},
     };
+  },
+  methods: {
+    handleItemClick(link) {
+      const store = useMainStore();
+      store.setClickedLink(link);
+    },
+    handleMouseEnter(linkObj) {
+      if (linkObj.items) {
+        this.isExpanded[linkObj.text] = true;
+      }
+    },
+    handleMouseLeave(linkObj) {
+      if (linkObj.items) {
+        this.isExpanded[linkObj.text] = false;
+      }
+    },
+  },
+  mounted() {
+    for (const linkObj of mapping) {
+      this.isExpanded[linkObj.text] = false;
+    }
   },
 };
 </script>
