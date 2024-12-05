@@ -1,7 +1,7 @@
 <template>
   <nav
     x-data="{ isOpen: false }"
-    class="relative bg-white shadow dark:bg-gray-800"
+    class="relative bg-white shadow dark:bg-gray-800 h-10"
   >
     <div class="container px-6 w-full whitespace-nowrap md:flex">
       <div class="flex items-center justify-between">

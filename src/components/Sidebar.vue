@@ -1,98 +1,109 @@
 <template>
   <aside
-    class="flex flex-col w-48 max-h-full px-3 overflow-y-hidden bg-white border-r dark:bg-gray-900 dark:border-gray-700 whitespace-nowrap"
+    class="flex flex-col w-48 max-h-full p-3 overflow-y-hidden bg-white border-r dark:bg-gray-900 dark:border-gray-700 whitespace-nowrap"
   >
-    <div v-for="categoryItem in dataFlow" :key="categoryItem.title">
-      <label class="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">{{
-        categoryItem.title
-      }}</label>
+    <div
+      v-for="categoryItem in dataFlow"
+      :key="categoryItem.title"
+      class="py-1"
+    >
+      <label
+        class="px-3 text-sm font-bold text-gray-600 uppercase dark:text-gray-400"
+        >{{ categoryItem.title }}</label
+      >
       <div
         v-for="firstLevelChild in categoryItem.children"
         :key="firstLevelChild.title"
       >
         <a
-          class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+          class="flex items-center px-3 py-2 text-gray-500 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
           @click="
             firstLevelChild.children
               ? toggleChildrenVisibility(firstLevelChild)
               : handleLink(firstLevelChild.link)
           "
         >
-          <span class="mx-2 text-sm font-medium">{{
+          <span class="mx-2 text-xs font-medium">{{
             firstLevelChild.title
           }}</span>
           <span
             v-if="firstLevelChild.children && firstLevelChild.showChildren"
-            class="mr-2 text-lg"
+            class="mr-2 text-sm"
             >&#8595;</span
           >
           <span
             v-if="firstLevelChild.children && !firstLevelChild.showChildren"
-            class="mr-2 text-lg"
+            class="mr-2 text-sm"
             >&#8594;</span
           >
         </a>
-        <div v-show="firstLevelChild.showChildren">
+        <div
+          v-show="firstLevelChild.showChildren"
+          class="bg-slate-50 rounded-md"
+        >
           <div
             v-for="secondLevelChild in firstLevelChild.children"
             :key="secondLevelChild.title"
             v-if="firstLevelChild.children"
           >
             <a
-              class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+              class="flex items-center px-3 py-2 text-gray-500 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
               @click="
                 secondLevelChild.children
                   ? toggleChildrenVisibility(secondLevelChild)
                   : handleLink(secondLevelChild.link)
               "
             >
-              <span class="mx-2 text-sm font-medium">{{
+              <span class="mx-2 text-xs font-medium">{{
                 secondLevelChild.title
               }}</span>
               <span
                 v-if="
                   secondLevelChild.children && secondLevelChild.showChildren
                 "
-                class="mr-2 text-lg"
+                class="mr-2 text-sm"
                 >&#8595;</span
               >
               <span
                 v-if="
                   secondLevelChild.children && !secondLevelChild.showChildren
                 "
-                class="mr-2 text-lg"
+                class="mr-2 text-sm"
                 >&#8594;</span
               >
             </a>
-            <div v-show="secondLevelChild.showChildren">
+            <div
+              v-show="secondLevelChild.showChildren"
+              class="bg-slate-200 rounded-md"
+            >
               <div
                 v-for="thirdLevelChild in secondLevelChild.children"
                 :key="thirdLevelChild.title"
                 v-if="secondLevelChild.children"
               >
                 <a
-                  class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                  class="flex items-center px-3 py-2 text-gray-500 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
                   @click="
                     thirdLevelChild.children
                       ? toggleChildrenVisibility(thirdLevelChild)
                       : handleLink(thirdLevelChild.link)
                   "
                 >
-                  <span class="mx-2 text-sm font-medium">{{
+                  <span class="mx-2 text-xs font-medium">{{
                     thirdLevelChild.title
                   }}</span>
                   <span
                     v-if="
                       thirdLevelChild.children && thirdLevelChild.showChildren
                     "
-                    class="mr-2 text-lg"
+                    class="mr-2 text-sm"
                     >&#8595;</span
                   >
                   <span
                     v-if="
                       thirdLevelChild.children && !thirdLevelChild.showChildren
                     "
-                    class="mr-2 text-lg"
+                    class="mr-2 text-sm"
                     >&#8594;</span
                   >
                 </a>
@@ -103,10 +114,10 @@
                     v-if="thirdLevelChild.children"
                   >
                     <a
-                      class="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                      class="flex items-center px-3 py-2 text-gray-500 transition-colors duration-300 rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
                       @click="handleLink(fourthLevelChild.link)"
                     >
-                      <span class="mx-2 text-sm font-medium">{{
+                      <span class="mx-2 text-xs font-medium">{{
                         fourthLevelChild.title
                       }}</span>
                     </a>
@@ -183,3 +194,12 @@ watch(
   }
 );
 </script>
+
+<style>
+a:hover {
+  border-color: black;
+  border-width: 1px;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  @apply -my-px;
+}
+</style>

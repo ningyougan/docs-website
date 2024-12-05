@@ -8,9 +8,9 @@ import deflist from 'markdown-it-deflist';
 import footnote from 'markdown-it-footnote';
 import hljs from 'highlight.js'; // https://highlightjs.org
 // 引入默认样式
-import 'highlight.js/scss/default.scss';
+// import 'highlight.js/scss/default.scss';
 // 引入个性化的vs2015样式
-import 'highlight.js/styles/github.min.css';
+import './styles/night-owl.min.css';
 // tables 未渲染
 
 // Actual default values
@@ -28,7 +28,9 @@ export const markdownIt = markdownit({
     if (lang && hljs.getLanguage(lang)) {
       try {
         return (
-          '<pre><code class="hljs">' +
+          `<pre><code class="hljs">` +
+          `${lang}` +
+          '<br/>' +
           hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
           '</code></pre>'
         );
